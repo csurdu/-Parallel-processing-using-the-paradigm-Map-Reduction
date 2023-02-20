@@ -1,45 +1,45 @@
 # -Parallel-processing-using-the-paradigm-Map-Reduction
-Cerint,˘a
-S˘a se implementeze un program paralel ˆın Pthreads pentru g˘asirea numerelor mai mari decˆat 0 care sunt
-puteri perfecte dintr-un set de fis, iere s, i num˘ararea valorilor unice pentru fiecare exponent.
-Pentru paralelizarea proces˘arii documentelor de intrare, se va folosi modelul Map-Reduce. Fis, ierele de
-intrare vor fi ˆımp˘art, ite (ˆın mod dinamic) cˆat mai echilibrat la nis, te thread-uri care le vor parsa s, i vor verifica
-ce numere mai mari decˆat 0 sunt puteri perfecte (operat, iunea de Map), rezultˆand astfel liste part, iale pentru
-fiecare exponent (ex., liste pentru p˘atratele perfecte, liste pentru cuburile perfecte, etc.). Pasul urm˘ator ˆıl
-reprezint˘a combinarea listelor part, iale (operat, iunea de Reduce) ˆın urma c˘areia se vor obt, ine liste agregate
-pentru fiecare exponent ˆın parte. Pentru fiecare astfel de list˘a, se vor num˘ara ˆın paralel valorile unice,
-rezultatele fiind apoi scrise ˆın nis, te fis, iere de ies, ire.
+file:///C:/Users/crist/Downloads/Tema%201%20APD.pdf
+Cerinta
+Sa se implementeze un program paralel ˆın Pthreads pentru gasirea numerelor mai mari decat 0 care sunt
+puteri perfecte dintr-un set de fisiere si numararea valorilor unice pentru fiecare exponent.
+Pentru paralelizarea procesarii documentelor de intrare, se va folosi modelul Map-Reduce. Fis, ierele de
+intrare vor fi ımpartite (ˆın mod dinamic) cat mai echilibrat la niste thread-uri care le vor parsa si vor verifica
+ce numere mai mari decat 0 sunt puteri perfecte (operat, iunea de Map), rezultand astfel liste partiale pentru
+fiecare exponent (ex., liste pentru p˘atratele perfecte, liste pentru cuburile perfecte, etc.). Pasul urmator ˆıl
+reprezinta combinarea listelor partiale (operat, iunea de Reduce) ˆın urma careia se vor obtine liste agregate
+pentru fiecare exponent ın parte. Pentru fiecare astfel de lista, se vor numara ˆın paralel valorile unice,
+rezultatele fiind apoi scrise ın niste fisiere de iesire.
 Paradigma Map-Reduce
 Pentru rezolvarea temei, se va folosi un model Map-Reduce similar cu cel folosit la Google pentru procesarea
-unor seturi mari de documente ˆın sisteme distribuite. Acest articol prezint˘a modelul Map-Reduce folosit
-de Google s, i o parte dintre aplicat, iile lui (mai importante pentru ˆınt,elegerea modelului sunt primele 4 pagini).
-Map-Reduce este un model (s, i o implementare asociat˘a) de programare paralel˘a pentru procesarea unor
+unor seturi mari de documente ın sisteme distribuite. Acest articol prezinta modelul Map-Reduce folosit
+de Googles si o parte dintre aplicatiile lui (mai importante pentru ˆıntelegerea modelului sunt primele 4 pagini).
+Map-Reduce este un model (si o implementare asociat˘a) de programare paralela pentru procesarea unor
 seturi imense de date, folosind sute sau mii de procesoare. ˆIn majoritatea cazurilor, Map-Reduce este folosit
-ˆıntr-un context distribuit, fiind, de fapt, un model de programare care poate fi adaptat pentru ambele situat, ii.
-Cea mai cunoscut˘a implementare este Apache Hadoop, dezvoltat init, ial de c˘atre Doug Cutting s, i Mike Cafarella. Modelul permite paralelizarea s, i distribuirea automat˘a a task-urilor. Paradigma Map-Reduce se
-bazeaz˘a pe existent,a a dou˘a funct, ii care ˆıi dau s, i numele: Map s, i Reduce. Funct, ia Map primes, te ca input o
-funct, ie f s, i o list˘a de elemente, s, i returneaz˘a o nou˘a list˘a de elemente rezultat˘a ˆın urma aplic˘arii funct, iei f
-asupra fiec˘arui element din lista init, ial˘a. Funct, ia Reduce combin˘a rezultatele obt, inute anterior.
-Mecanismul Map-Reduce funct, ioneaz˘a ˆın modul urm˘ator:
+ˆıntr-un context distribuit, fiind, de fapt, un model de programare care poate fi adaptat pentru ambele situatii.
+Cea mai cunoscut˘a implementare este Apache Hadoop, dezvoltat init, ial de catre Doug Cutting si Mike Cafarella. Modelul permite paralelizarea si distribuirea automat˘a a task-urilor. Paradigma Map-Reduce se bazeaza pe existenta a doua functii care ˆıi dau si numele: Map si Reduce. Functia Map primeste ca input o
+functie f si o lista de elemente, si returneaza o noua lista de elemente rezultata ˆın urma aplicarii functiei f
+asupra fiecarui element din lista initiala. Functia Reduce combin˘a rezultatele obtinute anterior.
+Mecanismul Map-Reduce functioneaza ˆın modul urmator:
 • utilizatorul cere procesarea unui set de documente
-• aceast˘a cerere este adresat˘a unui proces (sau fir de execut, ie) coordonator
+• aceast˘a cerere este adresata unui proces (sau fir de execut, ie) coordonator
 • coordonatorul asigneaz˘a documentele unor procese (sau fire de execut, ie) de tip Mapper1
-• un Mapper va analiza fis, ierele de care este responsabil s, i va genera nis, te rezultate part, iale, avˆand ˆın
+• un Mapper va analiza fisierele de care este responsabil si va genera niste rezultate partiale, avandın
 general forma unor perechi de tip {cheie, valoare}
-• dup˘a ce operat, iile Map au fost executate, alte procese (sau fire de execut, ie) de tip Reducer combin˘a
-rezultatele part, iale s, i genereaz˘a solut, ia final˘a.
+• dupa ce operatiile Map au fost executate, alte procese (sau fire de execut, ie) de tip Reducer combin˘a
+rezultatele partiale si genereaza solutia finala.
 Detalii tehnice
 Dˆandu-se un set de N documente, s˘a se numere valorile unice mai mari decˆat 0 de tip putere perfect˘a pentru
 fiecare exponent E folosind Map-Reduce. ˆIn implementarea temei, vor exista thread-uri care pot fi de dou˘a
-tipuri, Mapper sau Reducer, toate fiind pornite ˆımpreun˘a la ˆınceputul rul˘arii.
+tipuri, Mapper sau Reducer, toate fiind pornite ˆımpreuna la ˆınceputul rularii.
 Operat, iile de tip Map
-Pornind de la lista de documente de procesat ce va fi disponibil˘a ˆın fis, ierul de intrare, fiecare Mapper va
-ajunge s˘a proceseze nis, te documente. Alocarea de documente thread-urilor Mapper poate fi realizat˘a static
-ˆınainte de pornirea acestora (des, i nu este recomandat acest lucru), sau poate fi realizat˘a ˆın mod dinamic pe
-1Acest lucru nu trebuie neap˘arat realizat la ˆınceput, el se poate face s, i ˆın mod dinamic pe m˘asur˘a ce fis, ierele sunt procesate.
-ALGORITMI PARALELI S, I DISTRIBUIT, I Pagina 2 din 13
-m˘asur˘a ce documentele sunt procesate (ˆıntr-o astfel de situat, ie, un Mapper care se mis,c˘a mai repede decˆat
-ceilalt, i poate s˘a “fure” munc˘a de la alt Mapper, lucru care va duce la o procesare mai eficient˘a). Fiecare
+Pornind de la lista de documente de procesat ce va fi disponibila ˆın fisierul de intrare, fiecare Mapper va
+ajunge sa proceseze nis, te documente. Alocarea de documente thread-urilor Mapper poate fi realizat˘a static
+ˆınainte de pornirea acestora (des, i nu este recomandat acest lucru), sau poate fi realizata ˆın mod dinamic pe
+1.Acest lucru nu trebuie neaparat realizat la ˆınceput, el se poate face si ın mod dinamic pe masura ce fisierele sunt procesate.
+ALGORITMI PARALELI SI DISTRIBUIT, I Pagina 2 din 13
+masura ce documentele sunt procesate (ˆıntr-o astfel de situatie, un Mapper care se misca mai repede decat
+ceilalt, i poate sa “fure” munca de la alt Mapper, lucru care va duce la o procesare mai eficient˘a). Fiecare
 Mapper va executa urm˘atoarele act, iuni, pentru fiecare fis, ier de care este reponsabil:
 • deschide fis, ierul s, i ˆıl parcurge linie cu linie (pe fiecare linie fiind cˆate o valoare numeric˘a de tip ˆıntreg)
 • pentru fiecare ˆıntreg citit, verific˘a dac˘a este o putere perfect˘a a lui 2, 3, 4, etc. mai mare decˆat 0
