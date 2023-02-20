@@ -1,0 +1,13 @@
+Tema este impartita astfel:
+In main am citit fisierul initial test.txt si am salvat atat numarul de fisiere interioare cat si fisierele interioare intr un vector respectiv matrice
+Ulterior mi am alocat memorie pentru toate matricile pe care avea sa la folosesc in functia de mapperi si reduceri.
+Mi am deschis tredurile.
+
+In functia f am ambele functii atat  de mapping cat si de reduce si diferenta intre ele o fac prin id ul tredului.Daca este unul inferior numarului total de mapperi merg pe mapping altfel pe reduce
+In mapping deschid pe rand fiecare fisier si pun numerele din el intr un vector de matrici pentru a l putea accesa ulterior din reduce.Vectorul de matrici este un camp din struct
+prezent pentru toata lumea tocmai pentru a putea fi accesat de oricine.Populez matricea in functie de exponentul puterii perfecte  numarului prin functia checkperfectnumber.
+Dupa ce am populat matricile de numere ma duc in reduce
+
+In reduce ma folosesc de acelasi vector de matrici si parcurg fieacre matrice in parte si le pun reducerului respectiv exponentului de putere.Ulterior o sa am cate un vector pt fiecare reduce
+Sortez vectorii si dupa elimin dublicatele.Inntr un final numar dimensiunile noilor vectori fara dublicate si ii afisez in fisierele de output.
+
