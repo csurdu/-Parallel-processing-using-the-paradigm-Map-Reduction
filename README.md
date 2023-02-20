@@ -1,6 +1,8 @@
 # -Parallel-processing-using-the-paradigm-Map-Reduction
 file:///C:/Users/crist/Downloads/Tema%201%20APD.pdf
+
 Cerinta
+
 Sa se implementeze un program paralel ˆın Pthreads pentru gasirea numerelor mai mari decat 0 care sunt
 puteri perfecte dintr-un set de fisiere si numararea valorilor unice pentru fiecare exponent.
 Pentru paralelizarea procesarii documentelor de intrare, se va folosi modelul Map-Reduce. Fis, ierele de
