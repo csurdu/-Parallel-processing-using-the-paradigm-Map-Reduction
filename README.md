@@ -1,4 +1,4 @@
-# -Parallel-processing-using-the-paradigm-Map-Reduction
+# Parallel-processing-using-the-paradigm-Map-Reduction
 file:///C:/Users/crist/Downloads/Tema%201%20APD.pdf
 
 Cerinta
