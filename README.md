@@ -1,62 +1,62 @@
-# Map-Reduce cu Pthreads: Identificarea Numerelor Perfecte
+# Map-Reduce with Pthreads: Identifying Perfect Powers
 
-## Descriere
-Acest proiect implementează un program paralel utilizând Pthreads pentru identificarea numerelor mai mari decât 0 care sunt puteri perfecte dintr-un set de fișiere. Programul folosește modelul **Map-Reduce** pentru a paraleliza procesarea fișierelor de intrare și a număra valorile unice pentru fiecare exponent.
+## Description
+This project implements a parallel program using Pthreads to identify numbers greater than 0 that are perfect powers from a set of files. The program uses the **Map-Reduce** model to parallelize the processing of input files and count the unique values for each exponent.
 
-## Cerințe
-Programul procesează un set de fișiere, identifică numerele care sunt puteri perfecte și le organizează pe exponenți. Fiecare exponent va avea un fișier de ieșire care conține numărul de valori unice identificate.
+## Requirements
+The program processes a set of files, identifies numbers that are perfect powers, and organizes them by exponents. Each exponent will have an output file containing the count of unique values identified.
 
-### Paradigma Map-Reduce
-1. **Mapper**: Identifică puterile perfecte din fișierele de intrare și creează liste parțiale pentru fiecare exponent.
-2. **Reducer**: Combină listele parțiale și numără valorile unice pentru fiecare exponent, scriind rezultatele într-un fișier de ieșire.
+### Map-Reduce Paradigm
+1. **Mapper**: Identifies perfect powers from input files and creates partial lists for each exponent.
+2. **Reducer**: Combines the partial lists and counts unique values for each exponent, writing the results to an output file.
 
-## Structura fișierelor de intrare și ieșire
+## Input and Output File Structure
 
-### Fișier de intrare
-Fișierul principal de intrare conține lista fișierelor ce urmează să fie procesate:
+### Input File
+The main input file contains the list of files to be processed:
 ```
-<număr_fișiere>
-<fișier1>
-<fișier2>
+<number_of_files>
+<file1>
+<file2>
 ...
-<fișierN>
+<fileN>
 ```
 
-Fiecare fișier din lista de mai sus conține valori numerice:
+Each file in the list contains numerical values:
 ```
-<număr_valori>
-<valoare1>
-<valoare2>
+<number_of_values>
+<value1>
+<value2>
 ...
-<valoareN>
+<valueN>
 ```
 
-### Fișiere de ieșire
-Pentru fiecare exponent `E`, se creează un fișier de ieșire numit `outE.txt`, care conține o singură valoare:
+### Output Files
+For each exponent `E`, an output file named `outE.txt` is created, containing a single value:
 ```
-<număr_valori_unice>
+<number_of_unique_values>
 ```
 
-## Instrucțiuni de rulare
-Programul se compilează și se rulează astfel:
+## Execution Instructions
+The program can be compiled and executed as follows:
 
-1. **Compilare:**
+1. **Compilation:**
    ```bash
    gcc -pthread -o tema1 tema1.c
    ```
 
-2. **Rulare:**
+2. **Execution:**
    ```bash
-   ./tema1 <număr_mapperi> <număr_reduceri> <fișier_intrare>
+   ./tema1 <number_of_mappers> <number_of_reducers> <input_file>
    ```
 
-   - `<număr_mapperi>`: Numărul de thread-uri Mapper.
-   - `<număr_reduceri>`: Numărul de thread-uri Reducer.
-   - `<fișier_intrare>`: Fișierul care conține lista fișierelor de procesat.
+   - `<number_of_mappers>`: The number of Mapper threads.
+   - `<number_of_reducers>`: The number of Reducer threads.
+   - `<input_file>`: The file containing the list of files to be processed.
 
-### Exemplu de rulare
+### Example Execution
 
-Fișier de intrare:
+Input file:
 ```
 4
 in1.txt
@@ -65,7 +65,7 @@ in3.txt
 in4.txt
 ```
 
-Fișiere de procesat:
+Files to be processed:
 - `in1.txt`:
   ```
   6
@@ -106,42 +106,44 @@ Fișiere de procesat:
   0
   ```
 
-Comandă:
+Command:
 ```bash
 ./tema1 3 5 test.txt
 ```
 
-Fișiere de ieșire generate:
-- `out2.txt` (pătrate perfecte): `3`
-- `out3.txt` (cuburi perfecte): `2`
+Generated output files:
+- `out2.txt` (perfect squares): `3`
+- `out3.txt` (perfect cubes): `2`
 - `out4.txt`: `2`
 - `out5.txt`: `2`
 - `out6.txt`: `1`
 
-## Detalii tehnice
+## Technical Details
 
-1. **Operațiile Map:**
-   - Thread-urile Mapper procesează fișierele alocate dinamic.
-   - Pentru fiecare valoare din fișier:
-     - Se verifică dacă este o putere perfectă a unui exponent (de la 2 până la `<număr_reduceri>`).
-     - Valorile sunt salvate în liste parțiale separate pentru fiecare exponent.
+1. **Map Operations:**
+   - Mapper threads process dynamically assigned files.
+   - For each value in a file:
+     - Check if it is a perfect power for an exponent (from 2 up to `<number_of_reducers>`).
+     - Values are saved into partial lists for each exponent.
 
-2. **Operațiile Reduce:**
-   - Fiecare Reducer combină listele parțiale ale unui exponent într-o listă agregată.
-   - Se numără valorile unice din lista agregată.
-   - Rezultatul este scris într-un fișier de ieșire.
+2. **Reduce Operations:**
+   - Each Reducer combines the partial lists for its assigned exponent into a single aggregated list.
+   - Counts the unique values in the aggregated list.
+   - Writes the result to an output file.
 
-## Observații importante
-- **Sincronizare:** Reducerii nu încep execuția decât după finalizarea Mapper-ilor.
-- **Alocare dinamică:** Mapper-ii primesc fișiere în mod dinamic pentru echilibrarea încărcării.
-- **Validare input:** Programul tratează exclusiv numere întregi pozitive.
+## Important Notes
+- **Synchronization:** Reducers begin execution only after all Mappers complete their tasks.
+- **Dynamic Allocation:** Mappers receive files dynamically to balance the workload.
+- **Input Validation:** The program only processes valid positive integers.
 
-## Limitări
-- Programul presupune că toate fișierele de intrare conțin date valide.
-- Numerele mai mari decât 0 sunt considerate pentru identificarea puterilor perfecte.
+## Limitations
+- The program assumes that all input files contain valid data.
+- Only numbers greater than 0 are considered for identifying perfect powers.
 
-## Autori
-Acest proiect a fost realizat în cadrul cursului **Algoritmi Paraleli și Distribuiți**.
+## Authors
+This project was created as part of the **Parallel and Distributed Algorithms** course.
+
+
 
 
 
